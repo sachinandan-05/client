@@ -23,7 +23,7 @@ const Header = () => {
 
           <div className='hidden  lg:flex w-full justify-between max-w-sm border rounded-full focus-within:shadow-md pl-2'>
             <input type='text' placeholder='search' className=' w-full outline-none pl-2 '/>
-            <div className='text-xl min-w-[50px] h-9 bg-red-400 items-center pt-1 rounded-r-full flex justify-center '>
+            <div className='text-xl min-w-[50px] h-9 bg-red-400 items-center pt-1 rounded-r-full flex justify-center cursor-pointer '>
             <CiSearch />
 
             </div>
@@ -32,10 +32,10 @@ const Header = () => {
           </div>
 
           <div className='flex gap-7'>
-              <div className='text-4xl'>
+              <div className='text-4xl cursor-pointer'>
                 <RiAccountCircleLine />
               </div>
-              <div className='text-3xl pt-2 flex relative'>
+              <div className='text-3xl pt-2 flex relative cursor-pointer'>
                 <span>
                   <FaCartShopping />
                 </span>
