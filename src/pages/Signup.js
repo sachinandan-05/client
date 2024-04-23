@@ -1,15 +1,25 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import loginIcons from  "../assest/signin.gif"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
+import { toast } from 'react-toastify'
+// import summeryApi from '../common'
+// import { json } from 'react-router-dom'
+// import imageToBase64 from '../helpers/imageToBase64'
 
 
 const Signup = () => {
+
+  const navigate= useNavigate()
+  const inputRef=useRef(null)
+  const handleClick=()=>{
+    inputRef.current.click()
+  }
 
   const [data,setData]=useState(
     {
       email:"",
       password:"",
-      name:"",
+      username:"",
       confirmPassword:"",
       profilePic:""
     }
@@ -25,22 +35,66 @@ const Signup = () => {
     })
 
   }
-  const handleSumbit=(e)=>{
+  const handleSumbit=async(e)=>{
     e.preventDefault()
+    
+    if (!(data.password===data.confirmPassword)) {
+      console.log("password and confirm password is not match please re enter!!")
 
+      toast("password and confirm password not match please re-enter!!")
+    }else{
+      const response= await fetch("http://localhost:8080/api/v1/user/signup",{
+      method:"POST",
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify(data)
+      
+    })
+    const dataResponse= await response.json()
+      toast(dataResponse.message)
+    const dataResponse1= await JSON.stringify(dataResponse)
+      toast.success( dataResponse.message)
+    // console.log("data",dataResponse);
+    console.log("data",dataResponse1);
+    // console.log("data",dataResponse.message);
+    
+    navigate("/login")
+
+    }
+    
   }
-  console.log("data login",data)
+  // console.log("data login",data)
+
+  const handleUploadPic= async(e)=>{
+    const file= e.target.files[0]
+    const imagePic=URL.createObjectURL(file);
+    // const imagePic= await imageToBase64(file)
+    
+    
+    setData((prev)=>{
+      return{
+        ...prev,
+      profilePic:imagePic}
+
+  })
+  console.log(data.profilePic)
+    
+      
+    }
+    
   
   return (
     <section id='signup'>
       <div className='max-auto contsiner  p-4 mt-8 '>
         <div className='bg-white p-5 max-w-sm mx-auto mt-8 shadow-md'>
-          <div className=' bg-red-300 h-25 w-20 p-1mx-auto min-w-sm flex align-middle mx-auto rounded-full relative overflow-hidden'>
-          <div >
-            <img src={ loginIcons} alt='login icon'/>
+          <div className='  h-20 w-20 p-1mx-auto min-w-sm flex align-middle mx-auto rounded-full relative overflow-hidden '>
+          <div onClick={handleClick} onSubmit={handleUploadPic} className='h-20 w-20 '>
+            {data.profilePic? (<img src={data.profilePic} alt='login img'/>):( <img src={(loginIcons)} alt='login icon'/>)}
           </div>
-          <div className='absolute bg-slate-200 p-3 text-sm bottom-0 text-center w-full overflow-hidden opacity-75 cursor-pointer' >
-            <input type='file' className=' opacity-0 absolute hover:cursor-pointer'/>upload
+          <div className='absolute bg-slate-200 p-3 text-sm bottom-0 text-center w-full overflow-hidden opacity-75 cursor-pointer' onClick={handleClick}>
+          
+            <input type='file' ref={inputRef} className=' opacity-0 absolute hover:cursor-pointer hidden' name="profilePic"  onChange={handleUploadPic}/>upload
           </div>
 
           </div>
@@ -55,8 +109,8 @@ const Signup = () => {
                 <input 
                 type='text' 
                 placeholder='sachii'
-                name='name'
-                value={data.name}
+                name='username'
+                value={data.username}
                 onChange={handleOnChange}
                 className='w-full h-full outline-none bg-transparent'/>
               </div>
@@ -76,7 +130,7 @@ const Signup = () => {
               <label>
                 Passward
               </label>
-             
+          
             
             <div>
               
@@ -97,7 +151,7 @@ const Signup = () => {
               value={data.confirmPassword}
               onChange={handleOnChange}
                placeholder='* * * * * *'
-               className='w-full h-full outline-none bg-transparent'/>
+              className='w-full h-full outline-none bg-transparent'/>
 
               </div>
             </div>
