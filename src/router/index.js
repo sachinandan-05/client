@@ -5,6 +5,10 @@ import Home from "../pages/Home.js";
 import Login from "../pages/Login.js";
 import ForgotPassword from "../pages/ForgotPassword.js";
 import Signup from "../pages/Signup.js";
+import Admin from "../pages/admin.js";
+import AllProducts from "../pages/AllProducts.js";
+// import AllUsers from "../pages/AllUsers.js";
+import AllUsersList from"../pages/AllUsersList.js";
 
 const router = createBrowserRouter(
     [
@@ -27,6 +31,19 @@ children:
     {
         path:"signup",
         element:<Signup/>
+    },
+    {
+        path:"admin",
+        element:<Admin/>,
+        children:[{
+            path:"allproducts",
+            element:<AllProducts/>
+        },
+        {
+            path:"allusers",
+            element:<AllUsersList/>
+        }
+    ]
     }
 ]
 

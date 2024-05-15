@@ -1,9 +1,21 @@
-import React, { useState } from 'react'
-import loginIcons from  "../assest/signin.gif"
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import loginIcons from  "../assets/signin.gif"
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import Context from '../context'
+import summeryApi from '../common'
+// import { Navigate } from 'react-router-dom'
+// import summeryApi from '../common'
 
 
-const Login = () => {
+const Login =   () => {
+
+  useEffect(()=>{})
+
+  const fetchData= useContext(Context)
+  // console.log("fetched data:",fetchData.fetchUserDetails())
+
+  const navigate= useNavigate();
 
   const [data,setData]=useState(
     {
@@ -12,21 +24,43 @@ const Login = () => {
     }
   )
 
-  const handleOnChange=(e)=>{
-    const {name,value}=e.target
+  const handleOnChange=(event)=>{
+    const {name,value}=event.target
+  
     setData((prev)=>{
       return{
         ...prev,
-      [name]:value
+        [name]:value
+
       }
     })
-
   }
-  const handleSumbit=(e)=>{
+  const handleSumbit=async(e)=>{
     e.preventDefault()
 
+    const response= await fetch(summeryApi.login.url,{
+      method:summeryApi.login.method,
+      credentials:'include',
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify(data)
+      
+    })
+    const dataResponse= await response.json()
+  console.log(dataResponse);
+
+    if (dataResponse.success) {
+    toast.success(dataResponse.message)
+    navigate("/")
   }
-  // console.log("data login",data)
+  if (dataResponse.error) {
+    toast(dataResponse.message)
+    
+  }
+
+  }
+  
   
   return (
     <section id='login'>
@@ -44,10 +78,10 @@ const Login = () => {
                 
                 <input 
                 type='email' 
-                placeholder='name@addressgmail.com'
-                name='email'
+                name="email"
                 value={data.email}
                 onChange={handleOnChange}
+                placeholder='name@addressgmail.com'
                 className='w-full h-full outline-none bg-transparent'/>
               </div>
               
@@ -59,7 +93,7 @@ const Login = () => {
               <div className='bg-slate-100 p-2'>
               <input 
               type='password'
-              name='password'
+              name="password"
               value={data.password}
               onChange={handleOnChange}
                placeholder='* * * * * *'
@@ -73,7 +107,7 @@ const Login = () => {
             
               
             <div className='mx-auto  flex justify-center'>
-            <button className='bg-red-600 text-white px-6 rounded-full  mt-4 text-center py-1 hover:bg-red-700 hover:scale-110 transition-all'>Login</button>
+            <button className='bg-red-600 text-white px-6 rounded-full  mt-4 text-center py-1 hover:bg-red-700 hover:scale-110 transition-all' onClick={handleOnChange}>Login</button>
             </div>
 
             <p className='my-5' >Don't have Account!?<Link to={"/signup"} className='text-red-600'>signup</Link></p>
