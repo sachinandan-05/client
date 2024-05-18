@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+// import React, { useEffect } from 'react'
 import "../index.css"
 import Logo from './Logo.js'
 import { CiSearch } from "react-icons/ci";
@@ -40,8 +40,8 @@ const Header = () => {
   }
   
   return (
-    <header className='h-16 shadow-md bg-white'>
-      <div className='container-max-auto h-full flex items-center w-100vh justify-between '>
+    <header className='h-16 shadow-md   w-full  '>
+      <div className='container-max h-full flex items-center w-100vh justify-between '>
           <div>
             <Link to={"/"}>
             <Logo h={50} w={100}/>
@@ -96,7 +96,7 @@ const Header = () => {
               {user?._id ? (
 
             
-            <button onClick={handleLogout} className='bg-red-600 text-white px-4 py-1 rounded-full text-center hover:bg-red-700  '>logot</button>
+            <button onClick={handleLogout} className='bg-red-600 text-white px-4 py-1 rounded-full text-center hover:bg-red-700 mr-1 '>logot</button>
             
 
 

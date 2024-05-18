@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import { RiAccountCircleLine } from "react-icons/ri";
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import ROLE from '../common/role';
-
 const Admin = () => {
 
   const user= useSelector(state=>state?.user.user)
@@ -15,7 +14,7 @@ const Admin = () => {
       navigate("/")
       
     }
-  },[user])
+        },[user])
   
   
   return (

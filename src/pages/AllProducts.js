@@ -9,7 +9,7 @@ const AllProducts = () => {
     <div >
         <div className=' absolute right-0 bottom-10 left-[calc(180px)] top-[calc(67px)] '>
 
-        <div className='bg-blue-100 flex justify-between max-w-7xl w-full mx-2 shadow-md p-2 rounded-md'>
+        <div className='bg-blue-100 flex justify-between max-w-8xl w-full mx-2 shadow-md p-2 rounded-md'>
 <div>
     All products
 </div>

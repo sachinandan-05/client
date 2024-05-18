@@ -12,7 +12,7 @@ const AllUsersList = () => {
         role:'',
         _id:''
     })
-    console.log("userss",updateUserDetails);
+    // console.log("userss",updateUserDetails);
     const openAlluser=()=>{
         setOpenchangeUser((e)=>!e)
     }
