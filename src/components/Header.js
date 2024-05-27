@@ -1,4 +1,4 @@
-// import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "../index.css"
 import Logo from './Logo.js'
 import { CiSearch } from "react-icons/ci";
@@ -11,8 +11,23 @@ import { toast } from 'react-toastify';
 import { setUserDetails } from "../store/userSlice";
 import summeryApi from '../common/index.js';
 import ROLE from '../common/role.js';
+import Context from '../context/index.js';
+import CountProduct from '../helpers/CountProduct.js';
 
-const Header = () => {
+const Header = ({fux}) => {
+  const context= useContext(Context)
+  // console.log("context",context)
+
+ const a=context?.numberOfProduct
+//  console.log("a",a)
+  
+  useEffect(()=>{
+    context.fetchProductInCart()
+    
+    
+    
+  })
+ 
 
   
 
@@ -39,8 +54,11 @@ const Header = () => {
     }
   }
   
+   
+   
+  
   return (
-    <header className='h-16 shadow-md   w-full  '>
+    <header className='h-16 shadow-md   w-full  z-40 bg-white fixed '>
       <div className='container-max h-full flex items-center w-100vh justify-between '>
           <div>
             <Link to={"/"}>
@@ -50,9 +68,9 @@ const Header = () => {
             
           </div>
 
-          <div className='hidden  lg:flex w-full justify-between max-w-sm border rounded-full focus-within:shadow-md pl-2'>
-            <input type='text' placeholder='search' className=' w-full outline-none pl-2 '/>
-            <div className='text-xl min-w-[50px] h-9 bg-red-400 items-center pt-1 rounded-r-full flex justify-center cursor-pointer hover:bg-red-500 '>
+          <div className='hidden  lg:flex w-full justify-between max-w-sm border rounded-full  focus-within:shadow-md pl-2'>
+            <input type='text' placeholder='search' className=' w-full outline-none pl-2 bg-white rounded-md'/>
+            <div className='text-xl min-w-[50px] h-9 bg-red-500 items-center pt-1 rounded-r-full flex justify-center cursor-pointer hover:bg-red-600 text-white text-bold '>
             <CiSearch />
 
             </div>
@@ -79,27 +97,20 @@ const Header = () => {
 
             </div>)}
               
-
-              <div className='text-3xl pt-2 flex relative cursor-pointer'>
-                <span>
-                  <FaCartShopping />
-                </span>
-
-              <div className='text-white rounded-full bg-red-500 h-5 items-center flex justify-center w-5  absolute -top-1 -right-2'>
-                <p className=' text-xs'>0</p>
-              </div>
-
-              
-          
-            </div>
+            {user?._id && (
+               <Link to={'product/addedtocart'} className='text-3xl pt-2 flex relative cursor-pointer text-black'>
+               <span >
+                 <FaCartShopping />
+               </span>
+             <div className='text-white rounded-full bg-red-500 h-5 items-center flex justify-center w-5  absolute -top-1 -right-2'>
+               <p className=' text-xs'>{context?.numberOfProduct}</p>
+             </div>
+           </Link>
+            )}
+             
             <div className='items-center '>
               {user?._id ? (
-
-            
-            <button onClick={handleLogout} className='bg-red-600 text-white px-4 py-1 rounded-full text-center hover:bg-red-700 mr-1 '>logot</button>
-            
-
-
+                    <button onClick={handleLogout} className='bg-red-600 text-white px-4 py-1 rounded-full text-center hover:bg-red-700 mr-1 '>logot</button>
               ):(
                 <Link to={"/login"}>
                 <button className='bg-red-600 text-white px-4 py-1 rounded-full text-center hover:bg-red-800  '>login</button>

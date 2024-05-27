@@ -1,19 +1,34 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext,  useEffect,  useState } from 'react'
 import loginIcons from  "../assets/signin.gif"
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import Context from '../context'
 import summeryApi from '../common'
+
 // import { Navigate } from 'react-router-dom'
-// import summeryApi from '../common'
 
 
-const Login =   () => {
 
-  useEffect(()=>{})
+const Login =() => {
+
+
 
   const fetchData= useContext(Context)
-  // console.log("fetched data:",fetchData.fetchUserDetails())
+  console.log("fetchdata",fetchData.fetchUserDetails())
+
+  
+
+
+ 
+  useEffect(()=>{
+    // fetchData.fetchUserDetails()
+    
+  },[])
+
+  
+
+  
+ 
 
   const navigate= useNavigate();
 
@@ -34,9 +49,14 @@ const Login =   () => {
 
       }
     })
+   
   }
+  
   const handleSumbit=async(e)=>{
     e.preventDefault()
+   
+
+   
 
     const response= await fetch(summeryApi.login.url,{
       method:summeryApi.login.method,
@@ -51,8 +71,11 @@ const Login =   () => {
   console.log(dataResponse);
 
     if (dataResponse.success) {
-    toast.success(dataResponse.message)
+    toast.success("login succefully")
+    await fetchData.fetchUserDetails()
+   console.log("fetchedsuccessfully")
     navigate("/")
+    
   }
   if (dataResponse.error) {
     toast(dataResponse.message)
@@ -64,7 +87,7 @@ const Login =   () => {
   
   return (
     <section id='login'>
-      <div className='max-auto contsiner  p-4 mt-8 '>
+      <div className='max-auto contsiner  p-4 mt-8 bg-slate-100 h-screen '>
         <div className='bg-white p-5 max-w-sm mx-auto mt-8 shadow-md'>
           <div className='mx-auto w-20 h-20 '>
             <img src={ loginIcons} alt='login icon'/>
@@ -82,7 +105,7 @@ const Login =   () => {
                 value={data.email}
                 onChange={handleOnChange}
                 placeholder='name@addressgmail.com'
-                className='w-full h-full outline-none bg-transparent'/>
+                className='w-full h-full outline-none bg-transparent bg-white'/>
               </div>
               
             </div>
@@ -108,16 +131,18 @@ const Login =   () => {
               
             <div className='mx-auto  flex justify-center'>
             <button className='bg-red-600 text-white px-6 rounded-full  mt-4 text-center py-1 hover:bg-red-700 hover:scale-110 transition-all' onClick={handleOnChange}>Login</button>
+            <ToastContainer position='bottom-center'/>
             </div>
 
             <p className='my-5' >Don't have Account!?<Link to={"/signup"} className='text-red-600'>signup</Link></p>
+        
             
           </form>
 
         </div>
 
       </div>
-
+      
     </section>
   )
 }

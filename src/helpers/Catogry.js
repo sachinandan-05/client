@@ -1,4 +1,5 @@
 const productCategory = [
+    { id : 0, label : "Airpodes", value : "airpodes"},
     { id : 1, label : "Airpodes", value : "airpodes"},
     { id : 2, label : "Camera", value : "camera"},
     { id : 3, label : "Earphones", value : "earphones"},
@@ -11,6 +12,7 @@ const productCategory = [
     { id : 10, label : "Trimmers", value : "trimmers"},
     { id : 11, label : "Televisions", value : "televisions"},
     { id : 12, label : "Watches", value : "watches"},
+    { id : 13, label : "grocery", value : "grocery"},
 ]
 
 

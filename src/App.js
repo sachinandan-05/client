@@ -3,18 +3,30 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Context from "./context";
 import { useDispatch} from 'react-redux'
 import { setUserDetails } from "./store/userSlice";
+import CountProduct from "./helpers/CountProduct";
+
 
 
 function App() {
 
+  const[ numberOfProduct,setNumberOfProduct]=useState(0)
+  // console.log("numberof product",numberOfProduct)
+  const fetchProductInCart=async()=>{
+   const number= await CountProduct()
+   setNumberOfProduct(number)
+  
+  }
+
+
+  
   useEffect(()=>{
 
     fetchUserDetails()
-    // user details
+    fetchProductInCart()
       },[])
   const dispatch= useDispatch()
 
@@ -31,17 +43,26 @@ function App() {
     }
     // console.log("respose data:-",responseData)
   }
- 
+ useEffect(()=>{
+  // fetchUserDetails()
+
+  // console.log("refreshed")
+ },[])
 
   return (
     <>
     <Context.Provider value={{
-      fetchUserDetails //user details
+      fetchUserDetails ,//user details
+      fetchProductInCart,//count product
+      numberOfProduct //numberof products in cart
     }}>
     <ToastContainer/>
+
     
-      <Header/>
-      <main className=" min-h-[calc(100vh-140px)] ">
+    <Header />
+    
+     
+      <main className=" min-h-[calc(100vh-140px)] pt-16  ">
 
         <Outlet/>
 

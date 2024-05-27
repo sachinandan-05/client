@@ -9,6 +9,9 @@ import Admin from "../pages/admin.js";
 import AllProducts from "../pages/AllProducts.js";
 // import AllUsers from "../pages/AllUsers.js";
 import AllUsersList from"../pages/AllUsersList.js";
+import ProductDetailsView from "../components/ProductDetailsView.js";
+// import AddToCart from "../pages/AddedToCart.js";
+import AddedToCart from "../pages/AddedToCart.js";
 
 const router = createBrowserRouter(
     [
@@ -32,6 +35,15 @@ children:
         path:"signup",
         element:<Signup/>
     },
+    {
+        path:"product/:id",
+        element:<ProductDetailsView/>
+    },
+    {
+        path:"product/addedtocart",
+        element:<AddedToCart/>
+    },
+
     {
         path:"admin",
         element:<Admin/>,

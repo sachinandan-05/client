@@ -1,41 +1,57 @@
 import React, { useRef, useState } from 'react'
 import loginIcons from  "../assets/signin.gif"
 import { Link, useNavigate} from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import summeryApi from '../common'
+import uploadImage_Cloudinary from '../helpers/UploadImage'
 // import { json } from 'react-router-dom'
 // import imageToBase64 from '../helpers/imageToBase64'
 
 
 const Signup = () => {
-
-
-  const [file, setFile] = useState(null); 
-
-  console.log("image",file)
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-    console.log("file",e.target.files[0])
-  };
-
-  // console.log("url",summeryApi.signUP.url,summeryApi.signUP.method)
-
-  const navigate= useNavigate()
-  const inputRef=useRef(null)
-  const handleClick=()=>{
-    inputRef.current.click()
-  }
-
   const [data,setData]=useState(
     {
       email:"",
       password:"",
       username:"",
       confirmPassword:"",
+      profilePic:''
      
     }
   )
+  console.log("signup details",data)
+  console.log("profile image",data.profilePic)
 
+  const handleImageUpload=async(evnt)=>{
+    const file=evnt.target.files[0]
+    // const {name,value}=evnt.target
+    const uplodImage=  await uploadImage_Cloudinary(file)
+    console.log("uploaded image",uplodImage.secure_url)
+    const final_image=uplodImage.secure_url
+
+    // setData(data.profilePic=final_image)
+    
+    setData((prev)=>{
+      return {...prev,
+          profilePic:final_image
+      }
+})
+
+}
+// console.log("productImage url",activeUrl)
+  // console.log("url",summeryApi.signUP.url,summeryApi.signUP.method)
+
+  const navigate= useNavigate()
+  const inputRef=useRef(null)
+  const handleClick=()=>{
+    inputRef.current.click()
+
+  }
+
+  
+
+  
+  // const files =  uploadImage_Cloudinary()
   const handleOnChange=(e)=>{
     const {name,value}=e.target
     setData((prev)=>{
@@ -46,20 +62,8 @@ const Signup = () => {
     })
 
   }
-  const formDataWithImage = new FormData();
-    formDataWithImage.append('username', data.username);
-    formDataWithImage.append('email', data.email);
-    formDataWithImage.append('password', data.password);   
-    formDataWithImage.append('profilePic', file);
-    
+  
 
-    const plainObject = {"profilePic":file};
-for (const [key, value] of formDataWithImage.entries()) {
-  plainObject[key] = value;
-}
-
-// Convert plain object to JSON
-const jsonData = JSON.stringify(plainObject);
 
   const handleSumbit=async(e)=>{
     e.preventDefault()
@@ -69,21 +73,18 @@ const jsonData = JSON.stringify(plainObject);
 
       toast("password and confirm password not match please re-enter!!")
     }else{
-
-      
-      
       const response= await fetch(summeryApi.signUP.url,{
       method:summeryApi.signUP.method,
       headers:{
         "content-type":"application/json"
       },
-      body:jsonData
+      body:JSON.stringify(data)
       
     })
     const dataResponse= await response.json()
-      toast(dataResponse.message)
+      
     
-      toast.success( dataResponse.message)
+      toast.success("signupsucessfully")
     
     
     navigate("/login")
@@ -93,18 +94,6 @@ const jsonData = JSON.stringify(plainObject);
   }
  
 
-  // const handleUploadPic= async(e)=>{
-  //   const file= e.target.files
-  //   // const imagePic=URL.createObjectURL(file);
-  //   // const imagePic= await imageToBase64(file)
-    
-    
-  //   setData((prev)=>{
-  //     return{
-  //       ...prev,
-  //     profilePic:file}
-
-  // })
   
     
       
@@ -116,8 +105,8 @@ const jsonData = JSON.stringify(plainObject);
       <div className='max-auto contsiner  p-4 mt-8 '>
         <div className='bg-white p-5 max-w-sm mx-auto mt-8 shadow-md'>
           <div className='  h-20 w-20 p-1mx-auto min-w-sm flex align-middle mx-auto rounded-full relative overflow-hidden '>
-          <div onClick={handleClick} onSubmit={handleFileChange} className='h-20 w-20 '>
-            {data.profilePic? (<img src={data.profilePic} alt='login img'/>):( <img src={(loginIcons)} alt='login icon'/>)}
+          <div onClick={handleClick}  className='h-20 w-20 '>
+            {data.profilePic? (<img src={data.profilePic} className='object-fill h-full w-full rounded-full' onClick={handleImageUpload}alt='login img'/>):( <img src={(loginIcons)} alt='login icon'/>)}
           </div>
           <div className='absolute bg-slate-200 p-3 text-sm bottom-0 text-center w-full overflow-hidden opacity-75 cursor-pointer' onClick={handleClick}>
           
@@ -126,7 +115,7 @@ const jsonData = JSON.stringify(plainObject);
              accept="image/*"
              className=' opacity-0 absolute hover:cursor-pointer hidden' 
              name="profilePic" 
-              onChange={handleFileChange}/>upload
+              onChange={handleImageUpload}/>upload
           </div>
 
           </div>
@@ -195,6 +184,7 @@ const jsonData = JSON.stringify(plainObject);
               
             <div className='mx-auto  flex justify-center'>
             <button className='bg-red-600 text-white px-6 rounded-full  mt-4 text-center py-1 hover:bg-red-700 hover:scale-110 transition-all'>Sign Up</button>
+            <ToastContainer position='bottom-center'/>
             </div>
 
             <p className='my-5' >Already have Account!<Link to={"/login"} className='text-red-600'>Login</Link></p>

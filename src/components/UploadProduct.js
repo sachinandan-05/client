@@ -5,8 +5,10 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import uploadImage_Cloudinary from '../helpers/UploadImage';
 import DisplayFullImg from './DisplayFullImg';
 import { MdDelete } from "react-icons/md";
+import summeryApi from '../common';
+import { toast } from 'react-toastify';
 
-const UploadProduct = ({onClose}) => {
+const UploadProduct = ({onClose, fetchproduct}) => {
     const inputRef=useRef(null)
 
     const handleClick=()=>{
@@ -19,7 +21,7 @@ const UploadProduct = ({onClose}) => {
         catogry:"",
         productImage:[],
         price:" ",
-        
+        sellingPrice:" ",
         description:""
 
     })
@@ -69,10 +71,33 @@ const UploadProduct = ({onClose}) => {
     }
 
         // to avoid refresh onclicking sumbit button
-        const handleSumbmit=(e)=>{
+        const handleSumbmit=async(e)=>{
             e.preventDefault()
             console.log("data",data)
+
+             // sent data to backend
+
+           const response= await fetch(summeryApi.uploadProduct.url,{
+            method:"post",
+            headers:{
+                "content-type": "application/json"
+            },
+            body:JSON.stringify(data)
+           })
+            const dataResponse=await response.json()
+            console.log("productData",response)
+
+            if (dataResponse) {
+                toast.success("product uploaded successfully")
+                fetchproduct()
+                onClose()
+                
+            } else {
+                toast.error(response.error)
+                
+            }
         }
+        
     
 
     return (
@@ -147,13 +172,13 @@ const UploadProduct = ({onClose}) => {
   {
     data?.productImage && data.productImage.length > 0 ? (
       data.productImage.map((el, index) => (
-        <div key={index} className='relative group my-auto w-12 bg-red-500'>
+        <div key={index} className='relative group my-auto w-8 bg-red-500'>
           <img 
             src={el} 
             alt={`Product ${index}`} 
             width={80} 
             height={80}  
-            className='bg-slate-100 border cursor-pointer' 
+            className='bg-slate-100 border cursor-pointer w-8 h-[calc(65px)] overflow-clip' 
             onClick={()=>{
                 setFullImage(true)
                 setActiveUrl(el)
@@ -182,7 +207,7 @@ const UploadProduct = ({onClose}) => {
 </div>
 <div className='gap-1'>
     <label htmlFor='sprice'>Selling Price:</label>
-    <div className='w-full  bg-blue-300'><input id='sprice' type='text'name='sellinPrice'value={data.sellingPrice} onChange={handleOnChange} className='w-full rounded-md py-1 border-2 border-sky-500'></input></div>
+    <div className='w-full  bg-blue-300'><input id='sprice' type='text'name='sellingPrice'value={data.sellingPrice} onChange={handleOnChange} className='w-full rounded-md py-1 border-2 border-sky-500'></input></div>
 </div>
 <div className='grid gap-1'>
     <label htmlFor='disc'>Description:</label>
