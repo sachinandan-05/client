@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import FetchCategoryWiseProduct from '../helpers/FetchCategoryWiseProduct'
 import displayINRCurrency from '../helpers/DisplayCurrency'
 // import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
@@ -11,7 +13,7 @@ import scrollTop from '../helpers/ScrollTop'
 import { Link } from 'react-router-dom'
 import Context from '../context'
 import AddToCart from '../helpers/AddToCart'
-import { ToastContainer } from 'react-toastify'
+
 
 const RecommendationPage = ({ catogry, heading }) => {
     const [data, setData] = useState([])
@@ -23,9 +25,9 @@ const RecommendationPage = ({ catogry, heading }) => {
 
     const handleAddToCart = async(e,product_id)=>{
         console.log("id",product_id)
-       await AddToCart(e,product_id)
+        AddToCart(e,product_id)
     //   await CountProduct()
-await   context.fetchProductInCart()
+        context.fetchProductInCart()
     }
    
 
@@ -50,6 +52,7 @@ await   context.fetchProductInCart()
 
     return (
         <div className='container w-full   mx-auto px-4 my-6 relative p-3   h-full '>
+             <ToastContainer closeOnClick position='bottom-center'/>
 
             <h2 className='text-2xl font-semibold py-4 text-black' key={heading+"s"}>{heading}</h2>
 
@@ -100,7 +103,7 @@ await   context.fetchProductInCart()
                                         <button onClick={(e)=>{handleAddToCart(e,product?._id)}} className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 h-7 rounded-full'>
                                             Add to Cart
                                             </button></div>
-                                            <ToastContainer  position='bottom-center'/>
+                                           
                                         
                                     </div>
                                 </Link>

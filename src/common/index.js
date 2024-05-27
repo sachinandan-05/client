@@ -57,6 +57,15 @@ const summeryApi={
         method:"post"
 
         
+    },
+    searchProduct:{
+        url:`${backendDomain}/product/search`,
+        method:"get"
+    }
+    ,
+    filterproduct:{
+        url:`${backendDomain}/product/filter`,
+        method:"post"
     }
 }
 

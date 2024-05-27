@@ -1,4 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {useNavigate, useParams }from 'react-router-dom'
 import summeryApi from '../common'
 import displayINRCurrency from '../helpers/DisplayCurrency'
@@ -8,6 +10,7 @@ import { FaStarHalf } from "react-icons/fa";
 import RecommendationPage from '../pages/RecommendationPage';
 import Context from '../context';
 import AddToCart from '../helpers/AddToCart';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetailsView = () => {
 
@@ -115,7 +118,10 @@ useEffect(()=>{
 },[Params])
 
 return (
+  
     <div className='container mx-auto p-4'>
+      
+      <ToastContainer closeOnClick position='bottom-center' />
 
     <div className='min-h-[200px] flex flex-col lg:flex-row gap-4'>
         {/***product Image */}
@@ -207,7 +213,7 @@ return (
           (
             <div className='flex flex-col gap-1'>
               <p className='bg-red-200 text-red-600 px-2 rounded-full inline-block w-fit'>{data?.brandName}</p>
-              <h2 className='text-2xl lg:text-4xl font-medium'>{data?.productName}</h2>
+              <h2 className='text-2xl lg:text-4xl font-medium text-black'>{data?.productName}</h2>
               <p className='capitalize text-slate-400'>{data?.catogry}</p>
 
               <div className='text-red-600 flex items-center gap-1'>

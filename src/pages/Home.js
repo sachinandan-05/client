@@ -1,5 +1,7 @@
 import React from 'react'
 // import { useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ProductCatogry from '../components/ProductCatogry';
 import Banner from '../components/Banner';
 import HorizontalCardProduct from '../components/HorizontalCardProduct';
@@ -12,6 +14,8 @@ const Home = () => {
   
     return (
         <div className='scrollbar-none  '>
+          <ToastContainer closeOnClick position='bottom-center' />
+
           <ProductCatogry/>
           <Banner/>
           <VerticalProductCard catogry={"mobiles"} heading={"Top's Mobiles"}/>

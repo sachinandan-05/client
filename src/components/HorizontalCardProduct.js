@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
+
 import FetchCategoryWiseProduct from '../helpers/FetchCategoryWiseProduct'
 import displayINRCurrency from '../helpers/DisplayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
@@ -10,6 +11,7 @@ import { ToastContainer } from 'react-toastify'
 // import addToCart from '../helpers/addToCart'
 // import Context from '../context'
 // import scrollTop from '../helpers/scrollTop'
+import 'react-toastify/dist/ReactToastify.css';
 
 const HorizontalCardProduct = ({ catogry, heading }) => {
     const [data, setData] = useState([])
@@ -20,10 +22,10 @@ const HorizontalCardProduct = ({ catogry, heading }) => {
     // console.log("cc",context)
 
     const handleAddToCart = async(e,product_id)=>{
-        console.log("id",product_id)
+        // console.log("id",product_id)
        await AddToCart(e,product_id)
     //   await CountProduct()
-await   context.fetchProductInCart()
+await context.fetchProductInCart()
     }
    
 //   productAdded()
@@ -101,7 +103,7 @@ await   context.fetchProductInCart()
                                         <button onClick={(e)=>{handleAddToCart(e,product?._id)}}  className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 h-7 rounded-full'>
                                             Add to Cart
                                             </button>
-                                            <ToastContainer position='bottom-center'/>
+                                            
                                         
                                     </div>
                                 </Link>

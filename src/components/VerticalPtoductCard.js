@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import AddToCart from '../helpers/AddToCart'
 import Context from '../context'
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 // import addToCart from '../helpers/addToCart'
 // import Context from '../context'
 // import scrollTop from '../helpers/scrollTop'
@@ -86,7 +87,7 @@ await   context.fetchProductInCart()
                                 <p className='text-slate-500 line-through'>{ displayINRCurrency(product?.price)  }</p>
                             </div>
                             <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full' onClick={(e)=>{handleAddToCart(e,product?._id)}} >Add to Cart</button>
-                            <ToastContainer position='bottom-center'/>
+                           
                         </div>
                     </Link>
                 )

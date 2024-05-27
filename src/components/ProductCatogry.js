@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import summeryApi from '../common'
-import { json } from 'react-router-dom'
+import { Link, json } from 'react-router-dom'
 
 const ProductCatogry = () => {
+
+  // const navigate=useNavigate()
 
     const[data,setData]=useState([])
     const[loading,setLoading]=useState(true)
@@ -29,7 +31,7 @@ const ProductCatogry = () => {
 
     },[])
   return (
-  <div className=' h-40 gap-[calc(100px)] w-full px-5 overflow-x-scroll scrollbar-none  top-6   ' >
+  <Link className=' h-40 gap-[calc(100px)] w-full px-5 overflow-x-scroll scrollbar-none  top-6   ' >
       <div className='flex justify-between p-2 gap-2 w-full '>
     {loading? (
       
@@ -51,9 +53,9 @@ const ProductCatogry = () => {
        
         data.map((e,i)=>(
         <div className=''>
-          <div key={i} className='bg-white p-3 rounded-full w-28 h-28 hover:bg-slate-200  flex justify-center items-center'>
+          <Link to={"/product-catogry?catogry="+e?.catogry} key={e?.catogry} className='bg-white p-3 rounded-full w-28 h-28 hover:bg-slate-200  flex justify-center items-center' >
              <img src={e.productImage[0]} className='object-contain rounded-md h-16 w-16 p-2 mix-blend-multiply  hover:scale-125 transition-all'></img>
-          </div>
+          </Link>
         <div className=' pl-6 w-full '>
         <p key={i} className='capitalize font-sans font-semibold text-black'>{e.catogry}</p>
         </div>
@@ -65,7 +67,7 @@ const ProductCatogry = () => {
   }
     
     </div>
-    </div>
+    </Link>
   )
 }
 

@@ -5,14 +5,14 @@ import { CiSearch } from "react-icons/ci";
 
 import { RiAccountCircleLine } from "react-icons/ri";
 import { FaCartShopping } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { setUserDetails } from "../store/userSlice";
 import summeryApi from '../common/index.js';
 import ROLE from '../common/role.js';
 import Context from '../context/index.js';
-import CountProduct from '../helpers/CountProduct.js';
+// import CountProduct from '../helpers/CountProduct.js';
 
 const Header = ({fux}) => {
   const context= useContext(Context)
@@ -20,6 +20,9 @@ const Header = ({fux}) => {
 
  const a=context?.numberOfProduct
 //  console.log("a",a)
+
+const [search,setSearch] = useState()
+const  navigate=useNavigate()
   
   useEffect(()=>{
     context.fetchProductInCart()
@@ -53,7 +56,17 @@ const Header = ({fux}) => {
       toast.error(response.message)
     }
   }
-  
+  const handleSearch=(e)=>{
+    const {value}=e.target
+    setSearch(value)
+
+    if(value){
+      navigate(`/search?q=${value}`)
+    }else{
+      navigate("/search")
+    }
+
+  }
    
    
   
@@ -69,7 +82,7 @@ const Header = ({fux}) => {
           </div>
 
           <div className='hidden  lg:flex w-full justify-between max-w-sm border rounded-full  focus-within:shadow-md pl-2'>
-            <input type='text' placeholder='search' className=' w-full outline-none pl-2 bg-white rounded-md'/>
+            <input type='text' placeholder='search' className=' w-full outline-none pl-2 bg-white rounded-md' onChange={handleSearch} value={search}/>
             <div className='text-xl min-w-[50px] h-9 bg-red-500 items-center pt-1 rounded-r-full flex justify-center cursor-pointer hover:bg-red-600 text-white text-bold '>
             <CiSearch />
 
@@ -83,7 +96,7 @@ const Header = ({fux}) => {
            {user?._id && ( <div className='relative group flex justify-center '>
               <Link to={"/admin"}>
               <div className='text-4xl cursor-pointer h-10 w-10 rounded-full flex justify-center'>
-                { user?.profilePic ? (<img className=' h-10 w-10 rounded-full' src={user?.profilePic} alt=''/>):(<RiAccountCircleLine />) }
+                { user?.profilePic ? (<img className=' h-10 w-10 rounded-full' src={user?.profilePic} alt=''/>):(<RiAccountCircleLine size={40} />) }
               </div>
               
               </Link>

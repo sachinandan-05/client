@@ -12,6 +12,8 @@ import AllUsersList from"../pages/AllUsersList.js";
 import ProductDetailsView from "../components/ProductDetailsView.js";
 // import AddToCart from "../pages/AddedToCart.js";
 import AddedToCart from "../pages/AddedToCart.js";
+import SearchProduct from "../pages/SearchProduct.js";
+import CatogryPage from "../pages/CatogryPage.js";
 
 const router = createBrowserRouter(
     [
@@ -40,9 +42,18 @@ children:
         element:<ProductDetailsView/>
     },
     {
+        path:"search",
+        element:<SearchProduct/>
+    },
+    {
+        path:"product-catogry",
+        element:<CatogryPage/>
+    },
+    {
         path:"product/addedtocart",
         element:<AddedToCart/>
     },
+
 
     {
         path:"admin",
