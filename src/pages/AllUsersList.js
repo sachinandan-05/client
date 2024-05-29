@@ -126,32 +126,3 @@ export default AllUsersList
 
 
 
-// 
-// import { MdOutlineEdit } from "react-icons/md";
-
-// const AllUsersList = () => {
-
-    
-//     useEffect(()=>{
-//         fetchAllUsers()
-//     },[])
-//     
-//     
-            
-            
-            
-//             )
-//         }
-        
-//     return (
-//         <>
-//          all users
-        
-//         </>
-    
-
-//     )
-// }
-// }
-
-// export default AllUsersList
