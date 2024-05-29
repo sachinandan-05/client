@@ -32,7 +32,7 @@ const ProductCatogry = () => {
     },[])
   return (
   <Link className=' h-40 gap-[calc(100px)] w-full px-5 overflow-x-scroll scrollbar-none  top-6   ' >
-      <div className='flex justify-between p-2 gap-2 w-full '>
+      <div className='flex justify-between p-2 gap-2 w-full overflow-x-scroll scrollbar-none '>
     {loading? (
       
        
