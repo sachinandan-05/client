@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import moment from "moment"
 import { MdModeEdit } from "react-icons/md";
 import ChangeUser from '../components/ChangeUser';
+import summeryApi from '../common';
 const AllUsersList = () => {
 
     const [openChangeUser,setOpenchangeUser]=useState(false)
@@ -22,8 +23,8 @@ const AllUsersList = () => {
     const [allUsers,setallUsers]=useState([])
 
     const fetchAllUsers= async ()=>{
-                const response = await fetch("http://localhost:8080/api/v1/user/allusers",{
-                    method:"get",
+                const response = await fetch(summeryApi.alluser.url,{
+                    method:summeryApi.alluser.method,
                     credentials:'include'
 
         

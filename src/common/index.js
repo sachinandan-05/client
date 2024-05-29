@@ -19,6 +19,10 @@ const summeryApi={
         url:`${backendDomain}/user/updateusers`,
         method:"post"
     },
+    alluser:{
+        url:`${backendDomain}/user/allusers`,
+        method:"get"
+    },
     uploadProduct:{
         url:`${backendDomain}/product/uploadproduct`,
         method:"post"
@@ -66,6 +70,32 @@ const summeryApi={
     filterproduct:{
         url:`${backendDomain}/product/filter`,
         method:"post"
+    },
+    
+    
+    numberOfProduct:{
+        url:`${backendDomain}/cart/numberofproduct`,
+        method:"get"
+    }
+    ,
+    updateCartProduct:{
+        url:`${backendDomain}/cart/updatecartproduct`,
+        method:"post"
+    }
+    ,
+    deleteFromCart:{
+        url:`${backendDomain}/cart/delete-from-cart`,
+        method:"delete"
+    }
+    ,
+    addtocart:{
+        url:`${backendDomain}/cart/addtocart`,
+        method:"post"
+    }
+    ,
+    countCartProduct:{
+        url:`${backendDomain}/cart//countCartProduct`,
+
     }
 }
 

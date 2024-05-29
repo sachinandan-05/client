@@ -4,6 +4,7 @@ import SummaryApi from '../common'
 import Context from '../context'
 import displayINRCurrency from '../helpers/DisplayCurrency';
 import { MdDelete } from "react-icons/md";
+import summeryApi from '../common';
 
 const Cart = () => {
     const [data,setData] = useState([])
@@ -14,8 +15,8 @@ const Cart = () => {
 
     const fetchData = async() =>{
         
-        const response = await fetch("http://localhost:8080/api/v1/cart/numberofproduct",{
-            method : "get",
+        const response = await fetch(summeryApi.numberOfProduct.url,{
+            method : summeryApi.numberOfProduct.method,
             credentials : 'include',
             headers : {
                 "content-type" : 'application/json'
@@ -47,8 +48,8 @@ const Cart = () => {
 
     const increaseQty = async(id,qty) =>{
         console.log('fux call')
-        const response = await fetch("http://localhost:8080/api/v1/cart/updatecartproduct",{
-            method : 'post',
+        const response = await fetch(summeryApi.updateCartProduct.url,{
+            method : summeryApi.updateCartProduct.method,
             credentials : 'include',
             headers : {
                 "content-type" : 'application/json'
@@ -74,8 +75,8 @@ const Cart = () => {
 
     const decraseQty = async(id,qty) =>{
        if(qty >= 2){
-            const response = await fetch("http://localhost:8080/api/v1/cart/updatecartproduct",{
-                method : 'post',
+            const response = await fetch(summeryApi.updateCartProduct.url,{
+                method : summeryApi.updateCartProduct.method,
                 credentials : 'include',
                 headers : {
                     "content-type" : 'application/json'
@@ -101,8 +102,8 @@ const Cart = () => {
     }
 
     const deleteCartProduct = async(id)=>{
-        const response = await fetch("http://localhost:8080/api/v1/cart/delete-from-cart",{
-            method : 'delete',
+        const response = await fetch(summeryApi.deleteFromCart.url,{
+            method : summeryApi.deleteFromCart.method,
             credentials : 'include',
             headers : {
                 "content-type" : 'application/json'

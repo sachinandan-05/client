@@ -1,7 +1,8 @@
+import summeryApi from "../common"
 
 
 const CountProduct = async() => {
-    const response= await fetch("http://localhost:8080/api/v1/cart//countCartProduct",{
+    const response= await fetch(summeryApi.countCartProduct.url,{
         credentials:"include"
 
     })

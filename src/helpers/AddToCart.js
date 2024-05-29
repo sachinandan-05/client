@@ -3,14 +3,15 @@ import {toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
 import CountProduct from "./CountProduct"
+import summeryApi from "../common";
 
 const AddToCart = async(e,product_id) => {
   console.log("productId",product_id)
  
   e?.preventDefault()
   e?.stopPropagation()
-  const response = await fetch("http://localhost:8080/api/v1/cart/addtocart", {
-        method: 'post',
+  const response = await fetch(summeryApi.addtocart.url, {
+        method: summeryApi.addtocart.method,
         credentials :'include',
         headers: {
           "content-type": "application/json"

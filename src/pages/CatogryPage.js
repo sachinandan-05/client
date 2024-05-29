@@ -1,20 +1,4 @@
-// import React from 'react'
-// import { useLocation, useParams } from 'react-router-dom'
 
-// const CatogryPage = () => {
-//     const params= useParams()
-//     const location=useLocation()
-//     console.log("catogry",params)
-//     console.log("catogry",location?.search)
-//   return (
-//     <div>
-//       hello lund
-//       {location?.search}
-//     </div>
-//   )
-// }
-
-// export default CatogryPage
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import productCategory from '../helpers/Catogry'; // Keeping the typo as per your requirement
