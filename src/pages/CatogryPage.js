@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import productCategory from '../helpers/Catogry'; // Keeping the typo as per your requirement
+import productCategory from '../helpers/Catogry'; 
 import SearchCard from './SearchCard';
 import summeryApi from '../common';
 
