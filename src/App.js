@@ -26,6 +26,7 @@ function App() {
   const fetchUserDetails = async () => {
     try {
       const response = await fetch("https://z-cart-server.vercel.app//api/v1/user/userdetail", {
+          mode: 'no-cors',
         method: "GET",
         credentials: "include"
       });
