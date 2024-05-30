@@ -60,6 +60,7 @@ const Login =() => {
 
     const response= await fetch(summeryApi.login.url,{
       method:summeryApi.login.method,
+      mode:"no-cors",
       credentials:'include',
       headers:{
         "content-type":"application/json"
