@@ -10,7 +10,7 @@ const FetchCategoryWiseProduct = async(catogry) => {
 
     //    console.log("body",requestedData)
 
-    const response = await fetch(summeryApi.getListOfproductCatogryWise.url,{
+    const response = await fetch("https://z-cart-server.vercel.app//api/v1/product/getalistofproductcatogrywise,{
         method:"POST",
         // credentials:'include',
         headers : {
