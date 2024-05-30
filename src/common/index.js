@@ -1,6 +1,6 @@
 
 
-const backendDomain="http://localhost:8080/api/v1"
+const backendDomain="https://z-cart-server.vercel.app//api/v1"
 
 const summeryApi={
     signUP : {
